@@ -22,16 +22,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //rb.AddForce(new Vector2(0, strength), ForceMode2D.Impulse);
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySounds("Wing");
             rb.velocity = Vector2.up * strength;
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Coin"))
         {
-            Debug.Log("cos");
             collision.GetComponent<Coin>().PickUpCoin();
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySounds("Point");
         }
     }
 
@@ -40,7 +41,8 @@ public class PlayerController : MonoBehaviour
         if (!col.collider.CompareTag("Coin"))
         {
             GameManager.Instance.OnGameOver();
+            GameObject.Find("AudioManager").GetComponent<AudioManager>().PlaySounds("Die");
         }
-        
+
     }
 }
